@@ -11,14 +11,17 @@ function Calculator(){
     }
 
     this.operate = function(){
-        if (this.checkOperation()){
+        this.trimUserInput();
+        if (this.isValid()){
+            this.parseInput();
+
             this.operators[this.operator]();
         }
     }
 
-    this.checkOperation = function(){
-        this.trimUserInput();
-        return this.isValid()
+    this.parseInput  = function(){
+        this.arg1 = Number(this.arg1);
+        this.arg2 = Number(this.arg2);
     }
 
     this.trimUserInput = function(){
@@ -37,4 +40,19 @@ function Calculator(){
 
     /** operations */
 
+    this.add = function(){
+        return this.arg1 + this.arg2;
+    }
+
+    this.subtract = function(){
+        return this.arg1 - this.arg2;
+    }
+
+    this.multiply = function(){
+        return this.arg1 * this.arg2;
+    }
+
+    this.divide = function(){
+        return this.arg1 / this.arg2;
+    }
 }
