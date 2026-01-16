@@ -1,7 +1,9 @@
 function Calculator(){
     this.arg1 = "";
     this.arg2 = "";
-    this.operator = "";
+    this.operator = ""
+    
+    this.operationLog = ""
 
     this.operators = {
         "+": this.add,
@@ -10,13 +12,24 @@ function Calculator(){
         "/": this.divide,
     }
 
-    this.operate = function(){
+    this.operate = function(lastOperator){
         this.trimUserInput();
         if (this.isValid()){
             this.parseInput();
-
-            this.operators[this.operator]();
+            const result = this.operators[this.operator]();
+            this.updateOperationLog(lastOperator);
+            this.arg1 = result
+            
+            if (this.operators[lastOperator]){
+                this.operator = lastOperator;
+            }
         }
+    }
+
+    this.clearCurrentOperation = function(){
+        this.arg1 = "";
+        this.arg2 = "";
+        this.operator = "";
     }
 
     this.parseInput  = function(){
@@ -30,12 +43,28 @@ function Calculator(){
         this.operator = this.operator.trim();
     }
 
+    // check if both arguments are valid
     this.isValid = function(){
         return (
             this.arg1 && Number(this.arg1) != NaN &&
             this.arg2 && Number(this.arg2) != NaN &&
             this.operators[this.operator]
         )
+    }
+
+    /** logging methods */
+
+    this.getCurrentOperation = function(){
+        const arg1 = this.arg1 ? this.arg1 + " " : "";
+        const arg2 = this.arg2 ? this.arg2 + "" : "";
+        const operator = this.operator ? this.operator + " " : "";
+        return arg1 + operator + arg2;
+    }
+
+    this.updateOperationLog = function(lastOperator){
+        this.operationLog += this.getCurrentOperation() + 
+                                lastOperator + " ";
+        this.clearCurrentOperation();
     }
 
     /** operations */
