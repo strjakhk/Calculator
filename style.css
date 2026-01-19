@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Tektur:wght@400..900&display=swap');
+
+
 *{
     margin: 0px;
     padding: 0px;
@@ -5,5 +8,89 @@
 }
 
 :root{
+    --calc-width: 380px;
+    --btn-width: calc(var(--calc-width) / 4 - var(--key-gap) * 3);
+    --btn-height: calc(var(--btn-width) * 0.80);
     --key-gap: 3px;
+    --bg-color: #f2f2f2;
+    --key-color-2: #666666;
+    --key-color-1: #4d4d4d;
+    --text-color: #f2f2f2;
+}
+
+main{
+    background-color: var(--bg-color);
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+
+/* GROUP STYLES */
+
+main,
+.calculator,
+.screen{
+    display: flex;
+    flex-direction: column;
+}
+
+.keys{
+    display: flex;
+    flex-direction: row;
+}
+
+.calculator,
+.screen,
+.keys{
+    justify-content: center;
+}
+
+.calculator,
+.btn{
+    border-radius: 6px;
+}
+
+/**/
+
+.calculator{
+    width: var(--calc-width);
+    box-shadow: 0px 0px 3px var(--key-color-1);
+    padding: 5px;
+}
+
+
+/* screen styles */
+
+.screen{
+    height: 100px;
+}
+
+/* key styles */
+
+.keys{
+    flex-wrap: wrap;
+    gap: var(--key-gap);
+}
+
+.btn{
+    font-family: "Tektur";
+    font-size: 1.4em;
+    color: var(--text-color);
+
+    width: var(--btn-width);
+    height: var(--btn-height);
+    
+    border: none;
+    cursor: pointer;
+
+    background-color: var(--key-color-2);
+}
+.btn:hover{
+    background-color: var(--key-color-1);
+}
+.num{
+    background-color: var(--key-color-1);
+}
+.num:hover{
+    background-color: var(--key-color-2);
 }
