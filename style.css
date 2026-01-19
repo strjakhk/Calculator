@@ -9,20 +9,43 @@
 
 :root{
     --calc-width: 380px;
-    --btn-width: calc(var(--calc-width) / 4 - var(--key-gap) * 3);
+    --btn-width: calc(var(--calc-width) / 4 - var(--key-gap) * 2.8);
     --btn-height: calc(var(--btn-width) * 0.80);
     --key-gap: 3px;
     --bg-color: #f2f2f2;
+    --calc-bg-color: #333333;
+    --screen-bg-color: #404040;
     --key-color-2: #666666;
     --key-color-1: #4d4d4d;
     --text-color: #f2f2f2;
 }
+body{
+    background: #F0C27B;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #4B1248, #F0C27B);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #4B1248, #F0C27B); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
 
 main{
-    background-color: var(--bg-color);
-    height: 100vh;
+
+    height: 95vh;
     justify-content: center;
     align-items: center;
+}
+
+footer{
+    height: 5vh;
+    font-family: "Tektur", sans-serif;
+}
+
+footer p{
+    text-align: center;
+    color: var(--calc-bg-color);
+    font-size: 0.9em;
+    font-weight: 600;
+}
+
+footer a{
+    color: var(--calc-bg-color);
 }
 
 /* GROUP STYLES */
@@ -46,16 +69,33 @@ main,
 }
 
 .calculator,
-.btn{
+.btn,
+#operation{
     border-radius: 6px;
+}
+
+.btn,
+.screen{
+    font-family: "Tektur";
+    font-size: 1.4em;
+    color: var(--text-color);
+}
+
+#operation,
+#log{
+    width: 100%;
+    text-align: end;
+    padding-right: 10px;
 }
 
 /**/
 
 .calculator{
     width: var(--calc-width);
-    box-shadow: 0px 0px 3px var(--key-color-1);
-    padding: 5px;
+    background-color: var(--calc-bg-color);
+    box-shadow: 0px 0px 5px -1px #F0C27B;
+    padding: 10px;
+    gap: calc(var(--key-gap) * 5);
 }
 
 
@@ -63,6 +103,17 @@ main,
 
 .screen{
     height: 100px;
+    gap: var(--key-gap);
+    justify-content: space-evenly;
+}
+
+.screen #operation{
+    font-size: 1.8em;
+    background-color: var(--screen-bg-color);
+    box-shadow: 0px 0px 3px -1px #F0C27B;
+}
+.screen #log{
+    font-size: 0.9em;
 }
 
 /* key styles */
@@ -73,10 +124,6 @@ main,
 }
 
 .btn{
-    font-family: "Tektur";
-    font-size: 1.4em;
-    color: var(--text-color);
-
     width: var(--btn-width);
     height: var(--btn-height);
     
