@@ -10,6 +10,7 @@ function Calculator(){
         "-": this.subtract,
         "*": this.multiply,
         "/": this.divide,
+        "%": this.module,
     }
 
     this.operate = function(lastOperator){
@@ -83,5 +84,9 @@ function Calculator(){
 
     this.divide = function(){
         return this.arg1 / this.arg2;
+    }
+
+    this.module = function(){
+        return this.arg1 % this.arg2;
     }
 }
