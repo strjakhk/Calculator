@@ -25,6 +25,7 @@ function Calculator(){
     this.operate = function(lastOperator){
         this.trimUserInput();
         if (this.isValid()){
+            this.setCurrentArg();
             this.parseInput();
             const result = this.operators[this.operator]();
             this.updateOperationLog(lastOperator);

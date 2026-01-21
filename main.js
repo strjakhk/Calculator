@@ -52,3 +52,17 @@ function setSignOnInput(){
         calc.currentArg *= -1
     }
 }
+
+function setDotOnInput(){
+    if ("." in calc.currentArg) return;
+    calc.currentArg += ".";
+}
+
+function clearOperation(){
+    calc.clearCurrentOperation();
+    calc.currentArg = "";
+}
+
+function deleteKey(){
+    calc.currentArg = calc.currentArg.slice(0, -1);
+}
