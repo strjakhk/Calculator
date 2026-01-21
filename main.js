@@ -1,5 +1,5 @@
 const numButtons = document.querySelectorAll(".num");
-const operationButtons = document.querySelectorAll(".operation");
+const operationButtons = document.querySelectorAll(".operator");
 
 const btnSign = document.querySelector("#sign");
 const btnDot = document.querySelector("#dot");
@@ -29,21 +29,26 @@ btnEqual.addEventListener("click", calc.operate("="));
 
 function setNumInput(e){
     const value = e.target.innerText;
-    if (!calc.operator){
-        calc.arg1 += value;
-    }else{
-        calc.arg2 += value;
-    }
+    calc.currentArg += value;
 }
 
 function setOperator(e){
     const operator = e.target.innerText;
     if (!calc.operators[operator]) return;
     if (calc.arg1 && !calc.arg2){
+        calc.setCurrentArg();
+        calc.currentArg = calc.arg2;
         calc.operator = operator;
         return;
     }
     if (calc.arg2){
+        calc.setCurrentArg();
         calc.operate(operator);
+    }
+}
+
+function setSignOnInput(){
+    if (calc.currentArg){
+        calc.currentArg *= -1
     }
 }

@@ -2,6 +2,7 @@ function Calculator(){
     this.arg1 = "";
     this.arg2 = "";
     this.operator = "";
+    this.currentArg = "";
     
     this.operationLog = "";
 
@@ -13,15 +14,24 @@ function Calculator(){
         "%": this.module,
     }
 
+    this.setCurrentArg = function(){
+        if (!calc.operator){
+            this.arg1 = this.currentArg;
+        }else{
+            this.arg2 = this.currentArg;
+        }
+    }
+
     this.operate = function(lastOperator){
         this.trimUserInput();
         if (this.isValid()){
             this.parseInput();
             const result = this.operators[this.operator]();
             this.updateOperationLog(lastOperator);
-            this.arg1 = result
+            this.currentArg = result
             
             if (this.operators[lastOperator]){
+                this.setCurrentArg();
                 this.operator = lastOperator;
             }
         }
@@ -56,6 +66,7 @@ function Calculator(){
     /** logging methods */
 
     this.getCurrentOperation = function(){
+        this.setCurrentArg();
         const arg1 = this.arg1 ? this.arg1 + " " : "";
         const arg2 = this.arg2 ? this.arg2 + "" : "";
         const operator = this.operator ? this.operator + " " : "";
