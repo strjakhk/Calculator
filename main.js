@@ -7,6 +7,9 @@ const btnClear = document.querySelector("#clear");
 const btnDelete = document.querySelector("#delete");
 const btnEqual = document.querySelector("#equal");
 
+const logNode = document.querySelector("#log");
+const operationNode = document.querySelector("#operation");
+
 
 // Calculator instance
 
@@ -22,14 +25,21 @@ btnSign.addEventListener("click", setSignOnInput);
 btnDot.addEventListener("click", setDotOnInput);
 btnClear.addEventListener("click", clearOperation);
 btnDelete.addEventListener("click", deleteKey);
-btnEqual.addEventListener("click", calc.operate("="));
+btnEqual.addEventListener("click", () => operate("="));
 
+function operate(operator){
+    calc.setCurrentArg();
+    calc.operate(operator);
+    operationNode.textContent = calc.getCurrentOperation();
+    logNode.textContent = calc.operationLog;
+}
 
 // handlers
 
 function setNumInput(e){
     const value = e.target.innerText;
     calc.currentArg += value;
+    operationNode.textContent = calc.getCurrentOperation();
 }
 
 function setOperator(e){
@@ -39,30 +49,35 @@ function setOperator(e){
         calc.setCurrentArg();
         calc.currentArg = calc.arg2;
         calc.operator = operator;
-        return;
+    } else if (calc.arg2){
+        operate(operator);
     }
-    if (calc.arg2){
-        calc.setCurrentArg();
-        calc.operate(operator);
-    }
+    operationNode.textContent = calc.getCurrentOperation();
 }
 
 function setSignOnInput(){
     if (calc.currentArg){
         calc.currentArg *= -1
     }
+    operationNode.textContent = calc.getCurrentOperation();
 }
 
 function setDotOnInput(){
-    if ("." in calc.currentArg) return;
+    if (calc.currentArg.indexOf(".") != -1) return;
     calc.currentArg += ".";
+    operationNode.textContent = calc.getCurrentOperation();
 }
 
 function clearOperation(){
     calc.clearCurrentOperation();
+    calc.operationLog = "";
     calc.currentArg = "";
+    operationNode.textContent = calc.getCurrentOperation();
+    logNode.textContent = "";
+
 }
 
 function deleteKey(){
-    calc.currentArg = calc.currentArg.slice(0, -1);
+    calc.currentArg = String(calc.currentArg).slice(0, -1);
+    operationNode.textContent = calc.getCurrentOperation();
 }
