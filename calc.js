@@ -6,30 +6,51 @@ function Calculator(){
     
     this.operationLog = "";
 
+    /** operations */
+
+    this.add = function(){
+        return this.arg1 + this.arg2;
+    }
+
+    this.subtract = function(){
+        return this.arg1 - this.arg2;
+    }
+
+    this.multiply = function(){
+        return this.arg1 * this.arg2;
+    }
+
+    this.divide = function(){
+        return this.arg1 / this.arg2;
+    }
+
+    this.module = function(){
+        return this.arg1 % this.arg2;
+    }
+
     this.operators = {
-        "+": this.add,
-        "-": this.subtract,
-        "*": this.multiply,
-        "/": this.divide,
-        "%": this.module,
+        "+": () => this.add(),
+        "-": () => this.subtract(),
+        "*": () => this.multiply(),
+        "/": () => this.divide(),
+        "%": () => this.module(),
     }
 
     this.setCurrentArg = function(){
         if (!calc.operator){
-            this.arg1 = this.currentArg;
+            this.arg1 = String(this.currentArg);
         }else{
-            this.arg2 = this.currentArg;
+            this.arg2 = String(this.currentArg);
         }
     }
 
     this.operate = function(lastOperator){
         this.trimUserInput();
         if (this.isValid()){
-            this.setCurrentArg();
             this.parseInput();
             const result = this.operators[this.operator]();
             this.updateOperationLog(lastOperator);
-            this.currentArg = result
+            this.currentArg = result;
             
             if (this.operators[lastOperator]){
                 this.setCurrentArg();
@@ -75,30 +96,8 @@ function Calculator(){
     }
 
     this.updateOperationLog = function(lastOperator){
-        this.operationLog += this.getCurrentOperation() + 
+        this.operationLog += this.getCurrentOperation() + " " +
                                 lastOperator + " ";
         this.clearCurrentOperation();
-    }
-
-    /** operations */
-
-    this.add = function(){
-        return this.arg1 + this.arg2;
-    }
-
-    this.subtract = function(){
-        return this.arg1 - this.arg2;
-    }
-
-    this.multiply = function(){
-        return this.arg1 * this.arg2;
-    }
-
-    this.divide = function(){
-        return this.arg1 / this.arg2;
-    }
-
-    this.module = function(){
-        return this.arg1 % this.arg2;
     }
 }
